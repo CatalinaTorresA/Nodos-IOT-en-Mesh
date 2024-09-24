@@ -15,5 +15,7 @@
 
 void startDisplay();
 void displayText(String text);
+extern String infoReceived;
+
 
 #endif

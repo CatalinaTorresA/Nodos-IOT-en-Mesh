@@ -8,12 +8,13 @@
 #define MESH_PORT 5555
 
 // Pines del LED RGB
-#define RED_PIN 5
-#define GREEN_PIN 18
-#define BLUE_PIN 19
+#define RED_PIN 4
+#define GREEN_PIN 19
+#define BLUE_PIN 21
 
 Scheduler userScheduler;
 painlessMesh mesh;
+
 
 // Variables de tiempo
 unsigned long awakeStartTime = 0;   // Para rastrear cuándo se recibió el mensaje
@@ -27,9 +28,6 @@ void enterDeepSleep();
 void receivedCallback(uint32_t from, String &msg)
 {
   Serial.printf("Mensaje recibido de nodo %u: %s\n", from, msg.c_str());
-
-  // Encender el LED azul cuando se recibe un mensaje
-  controlRgbLed(LOW, LOW, HIGH);
 
   // Parsear el mensaje JSON
   JSONVar myObject = JSON.parse(msg.c_str());
@@ -66,12 +64,12 @@ void receivedCallback(uint32_t from, String &msg)
     if (temp > 30.0)
     {
       // Si la temperatura es mayor a 30°C, encender el LED rojo
-      controlRgbLed(HIGH, LOW, LOW);
+      controlRgbLed(HIGH, LOW, HIGH);
     }
     else
     {
       // Si la temperatura es inferior a 30°C, encender el LED verde
-      controlRgbLed(LOW, HIGH, LOW);
+      controlRgbLed(LOW, HIGH, HIGH);
     }
   }
   else
@@ -98,7 +96,7 @@ void controlRgbLed(int redState, int greenState, int blueState)
     Serial.println("temperatura normal");
     displayText(infoReceived + "\ntemperatura normal");
   }
-  else if (blueState == HIGH)
+  if (blueState == HIGH)
   {
     Serial.println("mensaje recibido");
     displayText(infoReceived + "\nmensaje recibido");

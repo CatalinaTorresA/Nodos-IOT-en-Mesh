@@ -5,6 +5,7 @@
 #include <Adafruit_SSD1306.h>
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
+String infoReceived="";
 
 void startDisplay()
 {
@@ -28,3 +29,4 @@ void displayText(String text)
   display.println(text);
   display.display();
 }
+
