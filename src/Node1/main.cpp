@@ -9,12 +9,12 @@
 #include "esp_sleep.h" // Para deep sleep
 
 // WiFi Credentials
-const char *ssid = "DIEGO";
-const char *wifipw = "10528152";
+const char *ssid = "Wifi Name";
+const char *wifipw = "Wifi Password";
 
 // Mesh Network Details
-#define MESH_PREFIX "meshcbm123"
-#define MESH_PASSWORD "cbmforever"
+#define MESH_PREFIX "meshprefix"
+#define MESH_PASSWORD "password"
 #define MESH_PORT 5555
 
 // DHT Sensor Setup

@@ -1,10 +1,11 @@
 #include "painlessMesh.h"
 #include <Arduino_JSON.h>
 #include "display.h"
+#include "dbConnection.h"
 #include "esp_sleep.h" // Para deep sleep
 
-#define MESH_PREFIX "meshcbm123"
-#define MESH_PASSWORD "cbmforever"
+#define MESH_PREFIX "meshprefix"
+#define MESH_PASSWORD "password"
 #define MESH_PORT 5555
 
 // Pines del LED RGB
@@ -22,6 +23,7 @@ unsigned long awakeDuration = 5000; // El receptor permanecerá despierto durant
 uint8_t estadoLeds[] = {LOW, LOW, LOW};
 
 void controlRgbLed(int redState, int greenState, int blueState);
+String checkLedStatus();
 void enterDeepSleep();
 
 // Callbacks
@@ -77,6 +79,8 @@ void receivedCallback(uint32_t from, String &msg)
             estadoLeds[1] = HIGH;
             estadoLeds[2] = HIGH;
         }
+
+        dbConnection(node, temp, hum, datetime, checkLedStatus()); // send data to database
     }
     else
     {
@@ -107,6 +111,20 @@ void controlRgbLed(int redState, int greenState, int blueState)
         Serial.println("mensaje recibido");
         displayText(infoReceived + "\nmensaje recibido");
     }
+}
+
+String checkLedStatus()
+{
+    String leds = "";
+    for (int i = 0; i < sizeof(estadoLeds) / sizeof(estadoLeds[0]); i++)
+    {
+        leds += String(estadoLeds[i]);
+        if (i < sizeof(estadoLeds) - 1)
+        {
+            leds += "-";
+        }
+    }
+    return leds;
 }
 
 String messageGenerator()
