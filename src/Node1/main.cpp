@@ -49,7 +49,6 @@ void startWifi()
     while (WiFi.status() != WL_CONNECTED)
     {
         Serial.print(".");
-        delay(500);
     }
     Serial.println("WiFi connected.");
 }
@@ -160,9 +159,6 @@ void setup()
     mesh.onNewConnection(&newConnectionCallback);
     mesh.onChangedConnections(&changedConnectionCallback);
 
-    // Mantener despierto por 3 segundos para la conexión inicial
-    Serial.println("Staying awake for 3 seconds to establish connection...");
-    delay(3000);
     sendMessage(); // Enviar mensaje una vez conectado
 }
 
