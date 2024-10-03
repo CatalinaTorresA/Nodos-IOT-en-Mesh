@@ -2,6 +2,7 @@
 #include <Adafruit_Sensor.h>
 #include "painlessMesh.h"
 #include <Arduino_JSON.h>
+#include <HTTPClient.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <WiFi.h>
@@ -9,8 +10,8 @@
 #include "esp_sleep.h" // Para deep sleep
 
 // WiFi Credentials
-const char *ssid = "Wifi Name";
-const char *wifipw = "Wifi Password";
+const char *ssid = "Hello";
+const char *wifipw = "12345678";
 
 // Mesh Network Details
 #define MESH_PREFIX "meshprefix"
